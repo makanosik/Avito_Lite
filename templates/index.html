@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Объявления</h2>
+    <ul>
+    {% for listing in listings %}
+        <li>
+            <strong>{{ listing.title }}</strong><br>
+             {% if listing.image_filename %}
+                <img src="{{ url_for('static', filename='img/advertisements/' + listing.image_filename) }}" alt="{{ listing.title }}" style="max-width: 100px;"><br>
+            <small>Описание:</small><br>
+            {{ listing.description }}<br>
+            <small>Цена:</small><br>
+            {{ listing.price }} руб.<br>
+            <small>
+            Дата публикации:<br>
+            {{ listing.formatted_time }}<br>
+            </small>
+            <br><br>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
