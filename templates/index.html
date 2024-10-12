@@ -1,24 +1,40 @@
 {% extends 'base.html' %}
 
+{% block title %}Главная страница{% endblock %}
+
 {% block content %}
-    <h2>Объявления</h2>
-    <ul>
-    {% for listing in listings %}
-        <li>
-            <strong>{{ listing.title }}</strong><br>
-             {% if listing.image_filename %}
-                <img src="{{ url_for('static', filename='img/advertisements/' + listing.image_filename) }}" alt="{{ listing.title }}" style="max-width: 100px;"><br>
-            <small>Описание:</small><br>
-            {{ listing.description }}<br>
-            <small>Цена:</small><br>
-            {{ listing.price }} руб.<br>
-            <small>
-            Дата публикации:<br>
-            {{ listing.formatted_time }}<br>
-            </small>
-            <br><br>
-            {% endif %}
-        </li>
-    {% endfor %}
-    </ul>
+    {% if current_user.is_authenticated %}
+        <div class="text-center">
+            <a href="{{ url_for('create_listing') }}" class="btn btn-primary">Добавить объявление</a>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <a href="{{ url_for('login') }}" class="btn btn-primary">Войдите, чтобы добавить объявление</a>
+        </div>
+    {% endif %}
+    <h1 class="display-6 text-center">Все объявления</h1>
+    <div class="row">
+        {% for listing in listings %}
+            <div class="col-6 col-md-4 col-lg-3 col-xl-2 col-xxl-2 mb-4 d-flex align-items-stretch">
+                <div class="card w-100">
+                    {% if listing.image_filename %}
+                        <img src="{{ url_for('static', filename='img/advertisements/' + listing.image_filename) }}" class="card-img-top" alt="Изображение объявления">
+                    {% else %}
+                        <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Нет изображения">
+                    {% endif %}
+                    <div class="card-body">
+                        <small><strong>{{ listing.title }}</strong></small><br>
+                        <small class="text-muted">{{ listing.description[:100] }}...</small>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="text-center m-0">
+                        <small><strong>Цена:</strong> {{ listing.price }} руб.</small><br>
+                        <small>Опубликовано: <br> {{ listing.formatted_time }}</small><br>
+                            <a href="#" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

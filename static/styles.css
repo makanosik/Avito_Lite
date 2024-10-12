@@ -1,12 +1,58 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+/* Основные стили для карточек */
+
+.card img {
+    object-fit: cover;
+    height: 200px;
 }
 
-header {
-    margin-bottom: 20px;
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
 }
 
-nav a {
-    margin-right: 10px;
+.card {
+    transition: box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для адаптивности */
+@media (max-width: 768px) {
+    .navbar .navbar-brand {
+        font-size: 1.5rem;
+    }
+
+    .card-body h5 {
+        font-size: 1.25rem;
+    }
+
+    .card-body p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Кнопка добавления объявления */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease;
+    margin: 3px
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Центрирование текста на маленьких экранах */
+@media (max-width: 576px) {
+    .card-body h5, .card-body p, .card-footer {
+        text-align: center;
+    }
 }
