@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="Good">
+    <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="beta">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/listings.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/create_listing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_listing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,13 +26,26 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;makanosik&quot;
-  }
+  &quot;lastFilter&quot;: {}
+}</component>
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOM9naIs5-c55V&quot;,
+        &quot;number&quot;: 1
+      },
+      &quot;lastSeen&quot;: 1728834558196
+    }
+  ]
 }</component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="de2c605e-2e51-4aed-b9c2-d0b4976ec0e1" />
@@ -47,8 +54,21 @@
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/makanosik/Avito_Lite.git&quot;,
     &quot;accountId&quot;: &quot;de2c605e-2e51-4aed-b9c2-d0b4976ec0e1&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;makanosik&quot;,
+    &quot;repository&quot;: &quot;Avito_Lite&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -68,7 +88,7 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/Schef/PycharmProjects/Avito_Lite/.venv",
-    "settings.editor.selected.configurable": "vcs.Subversion"
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -108,7 +128,39 @@
       <option name="project" value="LOCAL" />
       <updated>1728453652751</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Good(beta1)">
+      <option name="closed" value="true" />
+      <created>1728759562075</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728759562075</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Good(beta)">
+      <option name="closed" value="true" />
+      <created>1728832448487</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728832448487</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Beta">
+      <option name="closed" value="true" />
+      <created>1728833925001</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728833925001</updated>
+    </task>
+    <task id="LOCAL-00005" summary="beta">
+      <option name="closed" value="true" />
+      <created>1728908769408</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728908769408</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -127,11 +179,16 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="HEAD" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
                 </map>
+              </option>
+              <option name="TEXT_FILTER_SETTINGS">
+                <TextFilterSettings>
+                  <option name="MATCH_CASE" value="true" />
+                </TextFilterSettings>
               </option>
             </State>
           </value>
@@ -140,10 +197,17 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
     <MESSAGE value="Start(date+price)" />
     <MESSAGE value="12-10-24" />
     <MESSAGE value="Прическа" />
     <MESSAGE value="Good" />
-    <option name="LAST_COMMIT_MESSAGE" value="Good" />
+    <MESSAGE value="Good(beta1)" />
+    <MESSAGE value="Good(beta)" />
+    <MESSAGE value="Beta" />
+    <MESSAGE value="beta" />
+    <option name="LAST_COMMIT_MESSAGE" value="beta" />
   </component>
 </project>
