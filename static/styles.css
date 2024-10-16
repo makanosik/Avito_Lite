@@ -1,17 +1,24 @@
 /* Основные стили для карточек */
 
+.card-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Центрирование карточек */
+
 .card img {
     object-fit: cover;
-    height: 200px;
+    width: 199px;
+    height: 199px;
 }
 
 .card-img-top {
-    height: 200px;
     object-fit: cover;
 }
 
 .card {
     transition: box-shadow 0.3s ease;
+    width: 200px; /* Фиксированная ширина карточки */
+    margin-right: 20px; /* Расстояние между карточками */
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -19,7 +26,7 @@
 }
 
 .card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Стили для адаптивности */
