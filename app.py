@@ -150,7 +150,7 @@ def create_admin():
     db.session.commit()
     return "Администратор создан!"
 
-#Регистрация
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -228,7 +228,6 @@ def confirm_token(token, expiration=3600):
     except:
         return False
     return email
-
 
 
 @app.route('/create', methods=['GET', 'POST'])
