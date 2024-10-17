@@ -95,12 +95,41 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    listings = Listing.query.order_by(Listing.id.desc()).all()  # Покажем объявления всем
-    if current_user.is_authenticated:
-        if current_user.role == 'admin':
-            # Логика для админа
-            pass
-    return render_template('index.html', listings=listings)
+    query = request.args.get('query', '')
+    city = request.args.get('city', '')
+    start_date = request.args.get('start_date', '')
+    end_date = request.args.get('end_date', '')
+    categories = [
+        'Транспорт', 'Недвижимость', 'Работа', 'Услуги', 'Личные вещи',
+        'Для дома и дачи', 'Запчасти и аксессуары', 'Электроника', 'Хобби и отдых',
+        'Животные', 'Бизнес и оборудование'
+    ]
+    listings_by_category = {}
+    # Начинаем с базового запроса
+    listings = Listing.query
+    # Применяем фильтры поиска
+    if query:
+        listings = listings.filter(Listing.title.ilike(f'%{query}%'))
+
+    if city:
+        listings = listings.filter(Listing.author.has(city=city))
+
+    if start_date:
+        start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
+        listings = listings.filter(Listing.formatted_time >= start_date_obj.strftime("%d.%m.%y"))
+
+    if end_date:
+        end_date_obj = datetime.strptime(end_date, '%Y-%m-%d')
+        listings = listings.filter(Listing.formatted_time <= end_date_obj.strftime("%d.%m.%y"))
+    # Если нет фильтров, получаем последние 8 объявлений по каждой категории
+    if not query and not city and not start_date and not end_date:
+        for category in categories:
+            listings_by_category[category] = Listing.query.filter_by(category=category).order_by(Listing.id.desc()).limit(8).all()
+    else:
+        # Добавляем результаты поиска
+        listings_by_category['Результаты поиска'] = listings.order_by(Listing.id.desc()).all()
+
+    return render_template('index.html', listings_by_category=listings_by_category, query=query, city=city, start_date=start_date, end_date=end_date)
 
 
 @login_manager.user_loader

@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="Tik2 (думает регистрация)">
+    <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="Tik4 (регистрация c пдтв работает)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/listings.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/listings.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +180,39 @@
       <option name="project" value="LOCAL" />
       <updated>1729100488744</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Tik3 (регистрация c пдтв работает)">
+      <option name="closed" value="true" />
+      <created>1729149546186</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1729149546186</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Tik4 (регистрация c пдтв работает)">
+      <option name="closed" value="true" />
+      <created>1729150912010</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1729150912010</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Tik4 (регистрация c пдтв работает)">
+      <option name="closed" value="true" />
+      <created>1729150975355</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1729150975355</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Tik4 (регистрация c пдтв работает)">
+      <option name="closed" value="true" />
+      <created>1729151382366</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1729151382367</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,6 +262,8 @@
     <MESSAGE value="beta" />
     <MESSAGE value="Tik (не работает регистрация, добавлены категории" />
     <MESSAGE value="Tik2 (думает регистрация)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tik2 (думает регистрация)" />
+    <MESSAGE value="Tik3 (регистрация c пдтв работает)" />
+    <MESSAGE value="Tik4 (регистрация c пдтв работает)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tik4 (регистрация c пдтв работает)" />
   </component>
 </project>
