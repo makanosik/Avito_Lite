@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="beta#2">
+    <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="Tik2 (думает регистрация)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/listings.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/create_listing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_listing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/edit_listing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_listing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/listings.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/listings.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +163,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728908769408</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Tik (не работает регистрация, добавлены категории">
+      <option name="closed" value="true" />
+      <created>1729092467803</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1729092467803</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Tik2 (думает регистрация)">
+      <option name="closed" value="true" />
+      <created>1729100488744</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1729100488744</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -217,6 +227,8 @@
     <MESSAGE value="Good(beta)" />
     <MESSAGE value="Beta" />
     <MESSAGE value="beta" />
-    <option name="LAST_COMMIT_MESSAGE" value="beta" />
+    <MESSAGE value="Tik (не работает регистрация, добавлены категории" />
+    <MESSAGE value="Tik2 (думает регистрация)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tik2 (думает регистрация)" />
   </component>
 </project>

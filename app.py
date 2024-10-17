@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
+from sqlalchemy.sql.functions import user
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.fields.choices import SelectField
 from wtforms.fields.simple import PasswordField
@@ -18,18 +19,19 @@ from itsdangerous import URLSafeTimedSerializer
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/img/advertisements/'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///listings.db'
-app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SECRET_KEY'] = '12345'
 db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 login_manager = LoginManager()
 login_manager.init_app(app)
+app.config['MAIL_DEFAULT_SENDER'] = 'makanosik@gmail.com'
 
 
-app.config['MAIL_SERVER'] = 'smtp.google.com'
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'arsinosik@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Arseny09062015'
+app.config['MAIL_USERNAME'] = 'makanosik@gmail.com'
+app.config['MAIL_PASSWORD'] = 'ckdz kfzw whjy uyok'
 mail = Mail(app)
 
 
@@ -43,10 +45,8 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(20), nullable=False)
     city = db.Column(db.String(100), nullable=False)
     confirmed = db.Column(db.Boolean, default=False)
-
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
-
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
@@ -106,13 +106,106 @@ def index():
     return render_template('index.html', listings=listings)
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+@app.route('/profile')
+@login_required
+def profile():
+    user = current_user
+    # Проверяем, является ли пользователь администратором
+    if user.role == 'admin':
+        # Если администратор, выбираем все объявления
+        listings = Listing.query.order_by(Listing.id.desc()).all()
+    else:
+        # Если обычный пользователь, выбираем только его объявления
+        listings = Listing.query.filter_by(author=user).order_by(Listing.id.desc()).all()
+    return render_template('profile.html', listings=listings)
+
+
+@app.route('/delete/<int:id>', methods=['POST'])
+@login_required
+def delete_listing(id):
+    listing = Listing.query.get_or_404(id)
+    if current_user.role != 'admin' and listing.author != current_user:
+        return "Доступ запрещён", 403
+    if listing.image_filename:
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], listing.image_filename)
+        if os.path.exists(image_path):
+            os.remove(image_path)
+    db.session.delete(listing)
+    db.session.commit()
+    return redirect(url_for('profile'))
+
+
+@app.route('/create_admin')
+def create_admin():
+    if User.query.filter_by(username='admin').first():
+        return "Администратор уже существует."
+    hashed_password = generate_password_hash('12345')
+    admin_user = User(username='admin', password_hash=hashed_password, email="drslik@yandex.ru", phone="7(777)777", city="Чусик", confirmed=True, role='admin')
+    db.session.add(admin_user)
+    db.session.commit()
+    return "Администратор создан!"
+
+#Регистрация
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        email = form.email.data
+        phone = form.phone.data
+        city = form.city.data
+        password = form.password.data
+
+        if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
+            flash('Пользователь с таким именем или почтой уже существует!')
+            return redirect(url_for('register'))
+
+        hashed_password = generate_password_hash(password)
+        new_user = User(username=username, email=email, phone=phone, city=city, password_hash=hashed_password,
+                        confirmed=False, role='user')
+        db.session.add(new_user)
+        db.session.commit()
+        send_confirmation_email(new_user.id)  # Отправка письма для подтверждения
+        flash('Регистрация прошла успешно! Проверьте почту для подтверждения аккаунта.')
+        return redirect(url_for('login'))
+
+    return render_template('register.html', form=form)
+
+@app.route('/confirm/<token>')
+def confirm_email(token):
+    try:
+        email = confirm_token(token)
+    except:
+        flash('Ссылка для подтверждения недействительна или истекла.')
+        return redirect(url_for('index'))
+
+    user = User.query.filter_by(email=email).first_or_404()
+
+    if user.confirmed:
+        flash('Аккаунт уже подтвержден. Пожалуйста, войдите.')
+    else:
+        user.confirmed = True
+        db.session.commit()
+        flash('Ваш email подтвержден!')
+    return redirect(url_for('login'))
+
 @app.route('/send_confirmation_email/<int:user_id>')
 def send_confirmation_email(user_id):
     user = User.query.get_or_404(user_id)
     token = generate_confirmation_token(user.email)
     confirm_url = url_for('confirm_email', token=token, _external=True)
     html = render_template('email_confirmation.html', confirm_url=confirm_url)
-    msg = Message('Подтверждение регистрации', recipients=[user.email], html=html)
+    msg = Message(
+        'Подтверждение регистрации',
+        sender=app.config['MAIL_DEFAULT_SENDER'],  # Указываем отправителя
+        recipients=[user.email],
+        html=html
+    )
     mail.send(msg)
     return "Письмо отправлено!"
 
@@ -136,90 +229,6 @@ def confirm_token(token, expiration=3600):
         return False
     return email
 
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-
-@app.route('/profile')
-@login_required
-def profile():
-    user = current_user
-    # Проверяем, является ли пользователь администратором
-    if user.role == 'admin':
-        # Если администратор, выбираем все объявления
-        listings = Listing.query.order_by(Listing.id.desc()).all()
-    else:
-        # Если обычный пользователь, выбираем только его объявления
-        listings = Listing.query.filter_by(author=user).order_by(Listing.id.desc()).all()
-    return render_template('profile.html', listings=listings)
-
-
-@app.route('/confirm/<token>')
-def confirm_email(token):
-    try:
-        email = confirm_token(token)
-    except:
-        flash('Ссылка для подтверждения недействительна или истекла.')
-        return redirect(url_for('index'))
-
-    user = User.query.filter_by(email=email).first_or_404()
-
-    if user.email_confirmed:
-        flash('Аккаунт уже подтвержден. Пожалуйста, войдите.')
-    else:
-        user.email_confirmed = True
-        db.session.commit()
-        flash('Ваш email подтвержден!')
-    return redirect(url_for('index'))
-
-
-@app.route('/delete/<int:id>', methods=['POST'])
-@login_required
-def delete_listing(id):
-    listing = Listing.query.get_or_404(id)
-    if current_user.role != 'admin' and listing.author != current_user:
-        return "Доступ запрещён", 403
-    if listing.image_filename:
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], listing.image_filename)
-        if os.path.exists(image_path):
-            os.remove(image_path)
-    db.session.delete(listing)
-    db.session.commit()
-    return redirect(url_for('profile'))
-
-
-@app.route('/create_admin')
-def create_admin():
-    if User.query.filter_by(username='admin').first():
-        return "Администратор уже существует."
-    hashed_password = generate_password_hash('12345')
-    admin_user = User(username='admin', password_hash=hashed_password, email="drslik@yandex.ru", phone="7(777)777", city="Чусик", role='admin')
-    db.session.add(admin_user)
-    db.session.commit()
-    return "Администратор создан!"
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(
-            username=form.username.data,
-            email=form.email.data,
-            phone=form.phone.data,
-            city=form.city.data,
-            password_hash=generate_password_hash(form.password.data),
-            role='user'
-        )
-        db.session.add(user)
-        db.session.commit()
-
-        send_confirmation_email(user.id)  # Отправка письма
-        flash('Регистрация прошла успешно! Проверьте почту для подтверждения аккаунта.')
-        return redirect(url_for('login'))
-    return render_template('register.html', form=form)
 
 
 @app.route('/create', methods=['GET', 'POST'])
@@ -299,12 +308,23 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+
+        # Ищем пользователя в базе данных по имени
         user = User.query.filter_by(username=username).first()
-        if user and user.check_password(password):
-            login_user(user)
-            return redirect(url_for('index'))
+        if user:
+            # Проверяем подтверждён ли email
+            if not user.confirmed:
+                flash('Вам необходимо подтвердить email перед входом в систему.')
+                return redirect(url_for('login'))
+
+            # Проверяем правильность пароля
+            if user.check_password(password):
+                login_user(user)
+                return redirect(url_for('index'))
+            else:
+                flash('Неправильное имя пользователя или пароль')
         else:
-            flash('Неправильное имя пользователя или пароль')
+            flash('Пользователь не найден')
     return render_template('login.html')
 
 
