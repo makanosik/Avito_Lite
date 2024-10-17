@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from sqlalchemy.sql.functions import user
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.fields.choices import SelectField
 from wtforms.fields.simple import PasswordField
 from wtforms.validators import DataRequired
-from flask_wtf.file import FileField, FileRequired
+from flask_wtf.file import FileField
 import os
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -24,9 +23,7 @@ db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config['MAIL_DEFAULT_SENDER'] = 'makanosik@gmail.com'
-
-
+app.config['MAIL_DEFAULT_SENDER'] = 'bigxxuser@gmail.com'
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
@@ -160,11 +157,9 @@ def register():
         phone = form.phone.data
         city = form.city.data
         password = form.password.data
-
         if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
             flash('Пользователь с таким именем или почтой уже существует!')
             return redirect(url_for('register'))
-
         hashed_password = generate_password_hash(password)
         new_user = User(username=username, email=email, phone=phone, city=city, password_hash=hashed_password,
                         confirmed=False, role='user')
@@ -173,8 +168,8 @@ def register():
         send_confirmation_email(new_user.id)  # Отправка письма для подтверждения
         flash('Регистрация прошла успешно! Проверьте почту для подтверждения аккаунта.')
         return redirect(url_for('login'))
-
     return render_template('register.html', form=form)
+
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
@@ -183,9 +178,7 @@ def confirm_email(token):
     except:
         flash('Ссылка для подтверждения недействительна или истекла.')
         return redirect(url_for('index'))
-
     user = User.query.filter_by(email=email).first_or_404()
-
     if user.confirmed:
         flash('Аккаунт уже подтвержден. Пожалуйста, войдите.')
     else:
@@ -193,6 +186,7 @@ def confirm_email(token):
         db.session.commit()
         flash('Ваш email подтвержден!')
     return redirect(url_for('login'))
+
 
 @app.route('/send_confirmation_email/<int:user_id>')
 def send_confirmation_email(user_id):
