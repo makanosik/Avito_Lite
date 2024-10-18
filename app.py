@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField
@@ -13,6 +13,7 @@ from flask_login import UserMixin, login_required, current_user, LoginManager, l
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer
+from flask_migrate import Migrate
 
 
 app = Flask(__name__)
@@ -30,6 +31,7 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'bigxxuser@gmail.com'
 app.config['MAIL_PASSWORD'] = 'trgr xsbg koqo zbwl'
 mail = Mail(app)
+migrate = Migrate(app, db)
 
 
 class User(db.Model, UserMixin):
@@ -42,8 +44,10 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(20), nullable=False)
     city = db.Column(db.String(100), nullable=False)
     confirmed = db.Column(db.Boolean, default=False)
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
+
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
@@ -53,7 +57,7 @@ class Listing(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.String(100), nullable=False)
-    image_filename = db.Column(db.String(150), nullable=True)
+    image_filename = db.Column(db.Text, nullable=True)
     formatted_time = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     category = db.Column(db.String(100), nullable=False)
@@ -63,7 +67,7 @@ class ListingForm(FlaskForm):
     title = StringField('Название', validators=[DataRequired()])
     description = TextAreaField('Описание', validators=[DataRequired()])
     price = StringField('Цена', validators=[DataRequired()])
-    image = FileField('Изображение')
+    image = FileField('Изображения (до 5 штук)', render_kw={'multiple': True})
     category = SelectField('Категория', choices=[
         ('Транспорт', 'Транспорт'),
         ('Недвижимость', 'Недвижимость'),
@@ -124,12 +128,14 @@ def index():
     # Если нет фильтров, получаем последние 8 объявлений по каждой категории
     if not query and not city and not start_date and not end_date:
         for category in categories:
-            listings_by_category[category] = Listing.query.filter_by(category=category).order_by(Listing.id.desc()).limit(8).all()
+            listings_by_category[category] = Listing.query.filter_by(category=category).order_by(
+                Listing.id.desc()).limit(8).all()
     else:
         # Добавляем результаты поиска
         listings_by_category['Результаты поиска'] = listings.order_by(Listing.id.desc()).all()
 
-    return render_template('index.html', listings_by_category=listings_by_category, query=query, city=city, start_date=start_date, end_date=end_date)
+    return render_template('index.html', listings_by_category=listings_by_category, query=query, city=city,
+                           start_date=start_date, end_date=end_date)
 
 
 @login_manager.user_loader
@@ -171,7 +177,8 @@ def create_admin():
     if User.query.filter_by(username='admin').first():
         return "Администратор уже существует."
     hashed_password = generate_password_hash('12345')
-    admin_user = User(username='admin', password_hash=hashed_password, email="drslik@yandex.ru", phone="7(777)777", city="Чусик", confirmed=True, role='admin')
+    admin_user = User(username='admin', password_hash=hashed_password, email="drslik@yandex.ru", phone="7(777)777",
+                      city="Чусик", confirmed=True, role='admin')
     db.session.add(admin_user)
     db.session.commit()
     return "Администратор создан!"
@@ -258,28 +265,64 @@ def confirm_token(token, expiration=3600):
 def create_listing():
     form = ListingForm()
     if form.validate_on_submit():
-        image_file = form.image.data
-        if image_file and allowed_file(image_file.filename):
-            filename = secure_filename(image_file.filename)
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            image_file.save(image_path)
-        else:
-            flash("Неверный формат файла. Пожалуйста, загрузите изображение.")
+        uploaded_images = []
+        for image_file in request.files.getlist('image'):
+            if image_file and allowed_file(image_file.filename):
+                filename = secure_filename(image_file.filename)
+                image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                image_file.save(image_path)
+                uploaded_images.append(filename)
+            else:
+                flash("Неверный формат файла. Пожалуйста, загрузите изображение.")
+                return render_template('create_listing.html', form=form)
+
+        # Проверка, были ли загружены изображения
+        if not uploaded_images:
+            flash("Не удалось загрузить ни одно изображение.")
             return render_template('create_listing.html', form=form)
+
         # Создаем новое объявление
         new_listing = Listing(
             title=form.title.data,
             description=form.description.data,
             price=form.price.data,
-            image_filename=filename if image_file else None,
+            image_filename=','.join(uploaded_images),  # Храним имена всех загруженных изображений
             formatted_time=datetime.now().strftime("%d.%m.%y %H:%M"),
             author=current_user,
-            category = form.category.data
+            category=form.category.data
         )
         db.session.add(new_listing)
         db.session.commit()
+        flash("Объявление успешно создано.")
         return redirect(url_for('index'))
+
     return render_template('create_listing.html', form=form)
+
+
+@app.route('/upload_image', methods=['POST'])
+@login_required
+def upload_image():
+    if 'image' not in request.files:
+        return jsonify({'success': False, 'error': 'No file uploaded'}), 400
+
+    image_file = request.files['image']
+
+    if image_file and allowed_file(image_file.filename):
+        filename = secure_filename(image_file.filename)
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        image_file.save(image_path)
+
+        # Возвращаем успешный ответ с именем файла
+        return jsonify({'success': True, 'filename': filename})
+
+    return jsonify({'success': False, 'error': 'Invalid file format'}), 400
+
+
+@app.route('/listing/<int:id>')
+def listing_detail(id):
+    listing = Listing.query.get_or_404(id)
+    image_filename = listing.image_filename.split(',') if listing.image_filename else []
+    return render_template('listing_detail.html', listing=listing, images=image_filename)
 
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])

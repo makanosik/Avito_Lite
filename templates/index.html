@@ -49,7 +49,7 @@
                     <div class="card-footer text-muted">
                         <div class="text-center m-0">
                         <small>Опубликовано: <br> {{ listing.formatted_time }}</small><br>
-                            <a href="#" class="btn btn-primary">Подробнее</a>
+                            <a href="{{ url_for('listing_detail', id=listing.id) }}" class="btn btn-primary">Подробнее</a>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ listing.title }}</h1>
+{% if images %}
+    <div id="carouselImages" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for image in images %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img src="{{ url_for('static', filename='img/advertisements/' ~ image) }}" class="d-block w-100" alt="Image {{ loop.index }}">
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselImages" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+{% else %}
+    <p>Изображения не найдены.</p>
+{% endif %}
+    <p><strong>Описание:</strong> {{ listing.description }}</p>
+    <p><strong>Цена:</strong> {{ listing.price }} руб.</p>
+    <p><strong>Телефон:</strong> {{ listing.phone }}</p>
+    <p><strong>Город:</strong> {{ listing.city }}</p>
+    <p><strong>Автор:</strong> {{ listing.author.username }}</p>
+{% endblock %}

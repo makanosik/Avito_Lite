@@ -1,6 +1,10 @@
-Flask
+Flask~=3.0.3
 Flask-SQLAlchemy
 Flask-WTF
-WTForms
-Flask-Login
-Werkzeug
+WTForms~=3.1.2
+Flask-Login~=0.6.3
+Werkzeug~=3.0.4
+db~=0.1.1
+app~=0.0.1
+itsdangerous~=2.2.0
+Flask-Migrate~=4.0.7
