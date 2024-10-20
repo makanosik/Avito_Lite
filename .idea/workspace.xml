@@ -4,12 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="Tik4 (регистрация c пдтв работает)">
+    <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="Tik5 (поиск)">
+      <change beforePath="$PROJECT_DIR$/.idea/Avito_Lite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Avito_Lite.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/listings.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/listings.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/create_listing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_listing.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/listing_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/listing_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +76,7 @@
   }
 }</component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -92,7 +97,7 @@
     &quot;git-widget-placeholder&quot;: &quot;tik1&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Schef/PycharmProjects/Avito_Lite/.venv&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -212,7 +217,23 @@
       <option name="project" value="LOCAL" />
       <updated>1729151382367</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Tik4 (поиск)">
+      <option name="closed" value="true" />
+      <created>1729186419071</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1729186419071</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Tik5 (поиск)">
+      <option name="closed" value="true" />
+      <created>1729291066852</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1729291066852</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -264,6 +285,8 @@
     <MESSAGE value="Tik2 (думает регистрация)" />
     <MESSAGE value="Tik3 (регистрация c пдтв работает)" />
     <MESSAGE value="Tik4 (регистрация c пдтв работает)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tik4 (регистрация c пдтв работает)" />
+    <MESSAGE value="Tik4 (поиск)" />
+    <MESSAGE value="Tik5 (поиск)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tik5 (поиск)" />
   </component>
 </project>

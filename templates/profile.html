@@ -6,7 +6,7 @@
         {% for listing in listings %}
                 <div class="card mb-4">
                     {% if listing.image_filename %}
-                        <img src="{{ url_for('static', filename='img/advertisements/' + listing.image_filename) }}" class="img-fluid rounded-top" alt="Изображение объявления">
+                        <img src="{{ url_for('static', filename='img/advertisements/' + listing.image_filename.split(',')[0])}}" class="img-fluid rounded-top" alt="Изображение объявления">
                     {% else %}
                         <img src="https://via.placeholder.com/400x200" class="img-fluid rounded-top" alt="Нет изображения">
                     {% endif %}

@@ -3,9 +3,9 @@
 {% block title %}Создать объявление{% endblock %}
 
 {% block content %}
-    <h2 class="text-center">Создать новое объявление</h2>
+    <h1 class="display-6 text-center">Создать новое объявление</h1>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 m-5">
             <form method="POST" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <div class="mb-3">
@@ -25,14 +25,14 @@
                     {{ form.price(class="form-control") }}
                 </div>
                    <label for="image">Загрузить изображения:</label>
-    <input type="file" id="imageInput" name="image" accept="image/*" multiple>
+    <input type="file" id="imageInput" name="image" multiple>
 
     <!-- Поле для предварительного просмотра загруженных изображений -->
     <div id="preview"></div>
 
     <!-- Скрытое поле для хранения списка загруженных файлов -->
-    <input type="hidden" id="uploadedImages" name="uploaded_images">
-                <div class="text-center">
+    <input type="hidden" id="uploadedImages" name="uploaded_images" multiple>
+                <div class="text-center m-5">
                     {{ form.submit(class="btn btn-primary") }}
                 </div>
             </form>

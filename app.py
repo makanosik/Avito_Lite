@@ -265,18 +265,10 @@ def confirm_token(token, expiration=3600):
 def create_listing():
     form = ListingForm()
     if form.validate_on_submit():
-        uploaded_images = []
-        for image_file in request.files.getlist('image'):
-            if image_file and allowed_file(image_file.filename):
-                filename = secure_filename(image_file.filename)
-                image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                image_file.save(image_path)
-                uploaded_images.append(filename)
-            else:
-                flash("Неверный формат файла. Пожалуйста, загрузите изображение.")
-                return render_template('create_listing.html', form=form)
+        # Извлекаем список загруженных изображений из скрытого поля
+        uploaded_images = request.form.get('uploaded_images')
 
-        # Проверка, были ли загружены изображения
+        # Если изображений нет, возвращаем ошибку
         if not uploaded_images:
             flash("Не удалось загрузить ни одно изображение.")
             return render_template('create_listing.html', form=form)
@@ -286,7 +278,7 @@ def create_listing():
             title=form.title.data,
             description=form.description.data,
             price=form.price.data,
-            image_filename=','.join(uploaded_images),  # Храним имена всех загруженных изображений
+            image_filename=uploaded_images,  # Храним имена всех загруженных изображений
             formatted_time=datetime.now().strftime("%d.%m.%y %H:%M"),
             author=current_user,
             category=form.category.data

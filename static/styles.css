@@ -1,4 +1,22 @@
 /* Основные стили для карточек */
+nav {
+    background-image: url('../static/img/bg.jpg'); /* Путь к вашему фону */
+    background-size: cover;  /* Обеспечивает полное покрытие */
+    background-position: center; /* Центрирует изображение */
+    height: 100%; /* Высота заголовка, измените по своему усмотрению */
+
+}
+
+footer {
+    background-image: url('../static/img/bg.jpg'); /* Путь к вашему фону */
+    background-size: cover;  /* Обеспечивает полное покрытие */
+    background-position: center; /* Центрирует изображение */
+    height: 100%; /* Высота футера, измените по своему усмотрению */
+}
+
+.custom-dark-shadow {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.45); /* Темная тень */
+}
 
 .card-wrapper {
             display: flex;

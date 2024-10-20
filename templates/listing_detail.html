@@ -1,31 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ listing.title }}</h1>
-{% if images %}
-    <div id="carouselImages" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            {% for image in images %}
-                <div class="carousel-item {% if loop.first %}active{% endif %}">
-                    <img src="{{ url_for('static', filename='img/advertisements/' ~ image) }}" class="d-block w-100" alt="Image {{ loop.index }}">
-                </div>
-            {% endfor %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">{{ listing.title }}</h1>
+
+    {% if images %}
+    <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        {% for image in images %}
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}" aria-current="{% if loop.first %}true{% endif %}" aria-label="Slide {{ loop.index }}"></button>
+        {% endfor %}
+      </div>
+      <div class="carousel-inner shadow-lg">
+        {% for image in images %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+          <img src="{{ url_for('static', filename='img/advertisements/' ~ image) }}" class="rounded d-block w-100 img-fluid" alt="Image {{ loop.index }}" style="aspect-ratio: 1 / 1; object-fit: cover; width: 100%; height: 800px;">
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselImages" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Предыдущий</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Следующий</span>
+      </button>
     </div>
-{% else %}
-    <p>Изображения не найдены.</p>
-{% endif %}
-    <p><strong>Описание:</strong> {{ listing.description }}</p>
-    <p><strong>Цена:</strong> {{ listing.price }} руб.</p>
-    <p><strong>Телефон:</strong> {{ listing.phone }}</p>
-    <p><strong>Город:</strong> {{ listing.city }}</p>
-    <p><strong>Автор:</strong> {{ listing.author.username }}</p>
+    {% else %}
+    <p class="text-center text-muted">Изображения не найдены.</p>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Описание:</strong></p>
+            <p>{{ listing.description }}</p>
+        </div>
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Цена:</strong> {{ listing.price }} руб.</li>
+                <li class="list-group-item"><strong>Телефон:</strong> {{ listing.phone }}</li>
+                <li class="list-group-item"><strong>Город:</strong> {{ listing.city }}</li>
+                <li class="list-group-item"><strong>Автор:</strong> {{ listing.author.username }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}
