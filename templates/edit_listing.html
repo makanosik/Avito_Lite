@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2 class="text-center">Редактировать объявление</h2> <!-- Заголовок по центру -->
+<h1 class="display-6 text-center">Редактировать объявление</h1>
 <div class="d-flex justify-content-center">
-    <form method="POST" enctype="multipart/form-data" style="width: 70%;"> <!-- Центрирование формы и ширина 70% -->
+    <form method="POST" enctype="multipart/form-data" style="width: 70%;">
         {{ form.hidden_tag() }}
         <div class="form-group mt-3">
             {{ form.title.label(class="form-label") }}
@@ -21,7 +21,9 @@
             {{ form.image.label(class="form-label") }}
             {{ form.image(class="form-control-file") }}
         </div>
+        <div class="text-center m-5">
         <button type="submit" class="btn btn-primary mt-2">Сохранить изменения</button>
+        </div>
     </form>
 </div>
 {% endblock %}

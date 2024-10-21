@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="Tik5 (поиск)">
-      <change beforePath="$PROJECT_DIR$/.idea/Avito_Lite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Avito_Lite.iml" afterDir="false" />
+    <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="Tik6 (прическа)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/listings.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/listings.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/create_listing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_listing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/edit_listing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_listing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/email_confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/email_confirmation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/listing_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/listing_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729291066852</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Tik6 (прическа)">
+      <option name="closed" value="true" />
+      <created>1729440159829</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1729440159829</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -287,6 +292,7 @@
     <MESSAGE value="Tik4 (регистрация c пдтв работает)" />
     <MESSAGE value="Tik4 (поиск)" />
     <MESSAGE value="Tik5 (поиск)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tik5 (поиск)" />
+    <MESSAGE value="Tik6 (прическа)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tik6 (прическа)" />
   </component>
 </project>
