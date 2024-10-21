@@ -3,11 +3,15 @@
 {% block title %}Создать объявление{% endblock %}
 
 {% block content %}
-    <h2 class="text-center">Создать новое объявление</h2>
+    <h1 class="display-6 text-center">Создать новое объявление</h1>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 m-5">
             <form method="POST" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    {{ form.category.label(class="form-label") }}
+                    {{ form.category(class="form-control") }}
+                </div>
                 <div class="mb-3">
                     {{ form.title.label(class="form-label") }}
                     {{ form.title(class="form-control") }}
@@ -20,14 +24,61 @@
                     {{ form.price.label(class="form-label") }}
                     {{ form.price(class="form-control") }}
                 </div>
-                <div class="mb-3">
-                    {{ form.image.label(class="form-label") }}
-                    {{ form.image(class="form-control") }}
-                </div>
-                <div class="text-center">
+                   <label for="image">Загрузить изображения:</label>
+    <input type="file" id="imageInput" name="image" multiple>
+
+    <!-- Поле для предварительного просмотра загруженных изображений -->
+    <div id="preview"></div>
+
+    <!-- Скрытое поле для хранения списка загруженных файлов -->
+    <input type="hidden" id="uploadedImages" name="uploaded_images" multiple>
+                <div class="text-center m-5">
                     {{ form.submit(class="btn btn-primary") }}
                 </div>
             </form>
+
+            <script>
+    const imageInput = document.getElementById('imageInput');
+    const previewDiv = document.getElementById('preview');
+    const uploadedImagesInput = document.getElementById('uploadedImages');
+
+    let uploadedImages = []; // Список для хранения загруженных изображений
+
+    imageInput.addEventListener('change', function() {
+    const files = Array.from(this.files); // Преобразуем FileList в массив
+
+    files.forEach(file => {
+        // Создаем FormData для отправки файла
+        const formData = new FormData();
+        formData.append('image', file);
+
+        // Отправляем файл на сервер с помощью AJAX
+        fetch('/upload_image', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Добавляем имя загруженного файла в список
+                uploadedImages.push(data.filename);
+                uploadedImagesInput.value = uploadedImages.join(',');
+
+                // Показываем превью загруженного изображения
+                const img = document.createElement('img');
+                img.src = `/static/img/advertisements/${data.filename}`;
+                img.style.maxWidth = '150px';  // Ограничиваем размер изображения
+                img.style.margin = '5px';  // Добавляем отступ между изображениями
+                previewDiv.appendChild(img);
+            } else {
+                alert('Ошибка загрузки изображения');
+            }
+        })
+        .catch(error => console.error('Ошибка:', error));
+    });
+});
+</script>
+
         </div>
     </div>
 {% endblock %}
