@@ -2,7 +2,7 @@ nav {
     background-image: url('../static/img/bg.jpg'); /* Путь к вашему фону */
     background-size: cover;  /* Обеспечивает полное покрытие */
     background-position: center; /* Центрирует изображение */
-    height: 110px; /* Высота заголовка, измените по своему усмотрению */
+    height: 100%; /* Высота заголовка, измените по своему усмотрению */
 
 }
 
@@ -10,7 +10,7 @@ footer {
     background-image: url('../static/img/bg.jpg'); /* Путь к вашему фону */
     background-size: cover;  /* Обеспечивает полное покрытие */
     background-position: center; /* Центрирует изображение */
-    height: 220px; /* Высота футера, измените по своему усмотрению */
+    height: 100%; /* Высота футера, измените по своему усмотрению */
 }
 
 .custom-dark-shadow {

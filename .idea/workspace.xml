@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b13d9d3-a342-4fbf-af3b-82f19beb89dc" name="Changes" comment="Tik6 (прическа)">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/listings.db" beforeDir="false" afterPath="$PROJECT_DIR$/static/instance/listings.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/edit_listing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_listing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/email_confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/email_confirmation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/listing_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/listing_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,26 +83,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Python.app.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tik1&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Schef/PycharmProjects/Avito_Lite/.venv&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Python.app.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Schef/PycharmProjects/Avito_Lite/data",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Schef\PycharmProjects\Avito_Lite\data" />
       <recent name="C:\Users\Schef\PycharmProjects\Avito_Lite\.venv" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Schef\PycharmProjects\Avito_Lite\static\instance" />
+      <recent name="C:\Users\Schef\PycharmProjects\Avito_Lite\instance" />
       <recent name="C:\Users\Schef\PycharmProjects\Avito_Lite\static" />
-      <recent name="C:\Users\Schef\PycharmProjects\Avito_Lite" />
+      <recent name="C:\Users\Schef\PycharmProjects\Avito_Lite\static\img" />
+      <recent name="C:\Users\Schef\PycharmProjects\Avito_Lite\templates\css" />
     </key>
   </component>
   <component name="SharedIndexes">

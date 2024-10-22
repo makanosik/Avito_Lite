@@ -18,7 +18,8 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/img/advertisements/'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///listings.db'
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'static', 'instance', 'listings.db')
 app.config['SECRET_KEY'] = '12345'
 db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -393,4 +394,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False,host="0.0.0.0")
