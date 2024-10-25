@@ -20,17 +20,17 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/img/advertisements/'
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'static', 'instance', 'listings.db')
-app.config['SECRET_KEY'] = '12345'
+app.config['SECRET_KEY'] = '*****'
 db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config['MAIL_DEFAULT_SENDER'] = 'bigxxuser@gmail.com'
+app.config['MAIL_DEFAULT_SENDER'] = 'big**user@gmail.com'
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'bigxxuser@gmail.com'
-app.config['MAIL_PASSWORD'] = 'trgr xsbg koqo zbwl'
+app.config['MAIL_USERNAME'] = 'big**user@gmail.com'
+app.config['MAIL_PASSWORD'] = '**** **** **** ****'
 mail = Mail(app)
 migrate = Migrate(app, db)
 
@@ -45,10 +45,8 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(20), nullable=False)
     city = db.Column(db.String(100), nullable=False)
     confirmed = db.Column(db.Boolean, default=False)
-
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
-
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
@@ -115,14 +113,11 @@ def index():
     # Применяем фильтры поиска
     if query:
         listings = listings.filter(Listing.title.ilike(f'%{query}%'))
-
     if city:
         listings = listings.filter(Listing.author.has(city=city))
-
     if start_date:
         start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
         listings = listings.filter(Listing.formatted_time >= start_date_obj.strftime("%d.%m.%y"))
-
     if end_date:
         end_date_obj = datetime.strptime(end_date, '%Y-%m-%d')
         listings = listings.filter(Listing.formatted_time <= end_date_obj.strftime("%d.%m.%y"))
@@ -171,18 +166,6 @@ def delete_listing(id):
     db.session.delete(listing)
     db.session.commit()
     return redirect(url_for('profile'))
-
-
-@app.route('/create_admin')
-def create_admin():
-    if User.query.filter_by(username='admin').first():
-        return "Администратор уже существует."
-    hashed_password = generate_password_hash('12345')
-    admin_user = User(username='admin', password_hash=hashed_password, email="drslik@yandex.ru", phone="7(777)777",
-                      city="Чусик", confirmed=True, role='admin')
-    db.session.add(admin_user)
-    db.session.commit()
-    return "Администратор создан!"
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -244,7 +227,6 @@ def send_confirmation_email(user_id):
 def generate_confirmation_token(email):
     # Создаем объект URLSafeTimedSerializer с использованием секретного ключа приложения
     serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-
     # Генерируем токен, передавая в него email
     return serializer.dumps(email, salt='email-confirmation-salt')
 
@@ -252,7 +234,6 @@ def generate_confirmation_token(email):
 def confirm_token(token, expiration=3600):
     # Создаем объект URLSafeTimedSerializer с использованием секретного ключа приложения
     serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-
     try:
         # Декодируем токен с указанием срока действия (в секундах)
         email = serializer.loads(token, salt='email-confirmation-salt', max_age=expiration)
@@ -268,12 +249,10 @@ def create_listing():
     if form.validate_on_submit():
         # Извлекаем список загруженных изображений из скрытого поля
         uploaded_images = request.form.get('uploaded_images')
-
         # Если изображений нет, возвращаем ошибку
         if not uploaded_images:
             flash("Не удалось загрузить ни одно изображение.")
             return render_template('create_listing.html', form=form)
-
         # Создаем новое объявление
         new_listing = Listing(
             title=form.title.data,
@@ -288,7 +267,6 @@ def create_listing():
         db.session.commit()
         flash("Объявление успешно создано.")
         return redirect(url_for('index'))
-
     return render_template('create_listing.html', form=form)
 
 
@@ -297,17 +275,13 @@ def create_listing():
 def upload_image():
     if 'image' not in request.files:
         return jsonify({'success': False, 'error': 'No file uploaded'}), 400
-
     image_file = request.files['image']
-
     if image_file and allowed_file(image_file.filename):
         filename = secure_filename(image_file.filename)
         image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         image_file.save(image_path)
-
         # Возвращаем успешный ответ с именем файла
         return jsonify({'success': True, 'filename': filename})
-
     return jsonify({'success': False, 'error': 'Invalid file format'}), 400
 
 
@@ -366,7 +340,6 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
         # Ищем пользователя в базе данных по имени
         user = User.query.filter_by(username=username).first()
         if user:
@@ -374,7 +347,6 @@ def login():
             if not user.confirmed:
                 flash('Вам необходимо подтвердить email перед входом в систему.')
                 return redirect(url_for('login'))
-
             # Проверяем правильность пароля
             if user.check_password(password):
                 login_user(user)

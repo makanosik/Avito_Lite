@@ -36,22 +36,17 @@
                     {{ form.submit(class="btn btn-primary") }}
                 </div>
             </form>
-
-            <script>
-    const imageInput = document.getElementById('imageInput');
-    const previewDiv = document.getElementById('preview');
-    const uploadedImagesInput = document.getElementById('uploadedImages');
-
-    let uploadedImages = []; // Список для хранения загруженных изображений
-
-    imageInput.addEventListener('change', function() {
-    const files = Array.from(this.files); // Преобразуем FileList в массив
-
-    files.forEach(file => {
+<script>
+const imageInput = document.getElementById('imageInput');
+const previewDiv = document.getElementById('preview');
+const uploadedImagesInput = document.getElementById('uploadedImages');
+let uploadedImages = []; // Список для хранения загруженных изображений
+imageInput.addEventListener('change', function() {
+const files = Array.from(this.files); // Преобразуем FileList в массив
+files.forEach(file => {
         // Создаем FormData для отправки файла
         const formData = new FormData();
         formData.append('image', file);
-
         // Отправляем файл на сервер с помощью AJAX
         fetch('/upload_image', {
             method: 'POST',
@@ -78,7 +73,6 @@
     });
 });
 </script>
-
         </div>
     </div>
 {% endblock %}
