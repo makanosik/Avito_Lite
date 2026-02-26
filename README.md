@@ -49,4 +49,3 @@
     -  `flask db migrate`
     -  `flask db upgrade`
 
-Развернутую версию проекта можно взглянуть тут:  http://avitolite-onehalfxp.amvera.io/
